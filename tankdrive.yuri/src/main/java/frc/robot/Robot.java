@@ -27,7 +27,7 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
   
   //int kOnboardCS0 = 0;
-  private static final ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+  private static final ADXRS450_Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
   //AnalogGyro gyro = new AnalogGyro(kOnboardCS0);
 
 
@@ -39,7 +39,6 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     //gyro.initGyro();
     gyro.calibrate();
-    System.out.println("DEBUG " + gyro.isConnected());
 //Hi git test
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.

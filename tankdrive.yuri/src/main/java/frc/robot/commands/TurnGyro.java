@@ -4,17 +4,22 @@
 
 package frc.robot.commands;
 
+import javax.naming.PartialResultException;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive;
 
 public class TurnGyro extends CommandBase {
   private final Drive drive;
   private final double speed;
+  private final double durationTurn;
+  private long startTime;
   //private ADXRS450_Gyro gyro;
   /** Creates a new DriveWithGyro. */
-  public TurnGyro(Drive drive, double speed) {
+  public TurnGyro(Drive drive, double durationTurn,double speed) {
     this.speed = speed;
     this.drive = drive;
+    this.durationTurn = durationTurn * 1000;
     addRequirements(drive);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -22,7 +27,7 @@ public class TurnGyro extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
+    startTime = System.currentTimeMillis();
    // gyro.reset();
     // gyro.calibrate();
     drive.driveRight(0);
@@ -43,6 +48,6 @@ public class TurnGyro extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return System.currentTimeMillis() - startTime >= durationTurn;
   }
 }

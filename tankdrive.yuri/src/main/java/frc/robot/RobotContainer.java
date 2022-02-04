@@ -72,7 +72,7 @@ public class RobotContainer {
     // autodriveRight.whileHeld(new AutoDriveRight(drive)); 
     resetgyro.whenPressed(new ResetGyro(drive));
 
-    m_chooser.setDefaultOption("Square Drive", new AutonomousSquare(drive, 3, -0.3));
+    m_chooser.setDefaultOption("Square Drive", new AutonomousSquare(drive, 1.5, 0.95,-0.3));
     SmartDashboard.putData(m_chooser);
 
   }

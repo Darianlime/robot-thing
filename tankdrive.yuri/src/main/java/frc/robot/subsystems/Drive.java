@@ -29,10 +29,10 @@ public class Drive extends SubsystemBase {
   DifferentialDrive drive = new DifferentialDrive(leftTalon, rightTalon);
   /** Creates a new Drive. */
   public Drive() {
-    leftTalonInside.setNeutralMode(NeutralMode.Coast);
-    leftTalonOutside.setNeutralMode(NeutralMode.Coast);
-    rightTalonInside.setNeutralMode(NeutralMode.Coast);
-    rightTalonOutside.setNeutralMode(NeutralMode.Coast);
+    leftTalonInside.setNeutralMode(NeutralMode.Brake);
+    leftTalonOutside.setNeutralMode(NeutralMode.Brake);
+    rightTalonInside.setNeutralMode(NeutralMode.Brake);
+    rightTalonOutside.setNeutralMode(NeutralMode.Brake);
     leftTalonInside.setInverted(true);
     leftTalonOutside.setInverted(true);
   }
