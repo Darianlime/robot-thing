@@ -94,19 +94,19 @@ public class Drive extends SubsystemBase {
       rightTalonInside.getSensorCollection().setQuadraturePosition(0, 30);
     }
     
-    public double convertToFeet(double encoderValue, double constant) {
-      return encoderValue / constant; 
+    public double convertToInches(double encoderValue) {
+      return encoderValue * Constants.INCHES_PER_TICK; 
     }
 
-    public double convertToEncoderValue(double feet, double constant) {
-      return feet * constant; 
+    public double convertToEncoderValue(double Inches) {
+      return Inches * Constants.INCHES_PER_TICK; 
     }
 
 
     public void driveForwardEncoder(double distance, double speed) {
       
-      if (convertToFeet(getEncoderValueLeft(), Constants.LEFT_ENCODER_TO_PER_FOOT) <= distance && convertToFeet(getEncoderValueRight(), Constants.RIGHT_ENCODER_TO_PER_FOOT) <= distance) {
-        driveForward(speed);
+      if (convertToInches(getEncoderValueLeft()) <= distance && convertToInches(getEncoderValueRight()) <= distance) {
+        driveForward(0);
       } else {
         driveForward(0);
       }
@@ -182,8 +182,10 @@ public class Drive extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Encoder Left Values (Feet): ", leftTalonOutside.getSelectedSensorPosition() / 933);
-    SmartDashboard.putNumber("Encoder Right Values(Feet): ", rightTalonInside.getSelectedSensorPosition() / 902);
+    SmartDashboard.putNumber("Encoder Left Raw", leftTalonOutside.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Encoder Right Raw", rightTalonInside.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Encoder Left Values (Feet): ", convertToInches(leftTalonOutside.getSelectedSensorPosition()));
+    SmartDashboard.putNumber("Encoder Right Values(Feet): ", convertToInches(rightTalonInside.getSelectedSensorPosition()));
 
     // This method will be called once per scheduler run
   }

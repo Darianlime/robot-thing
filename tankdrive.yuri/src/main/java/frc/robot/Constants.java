@@ -21,5 +21,6 @@ public final class Constants {
     public static final int RIGHT_TALON_INSIDE = 4;
     public static final double LEFT_ENCODER_TO_PER_FOOT = 933;
     public static final double RIGHT_ENCODER_TO_PER_FOOT = 902;
+    public static final double INCHES_PER_TICK = (4*Math.PI*3)/4096;
 
 }
