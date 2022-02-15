@@ -19,4 +19,7 @@ public final class Constants {
     public static final int LEFT_TALON_INSIDE = 3;
     public static final int RIGHT_TALON_OUTSIDE = 5;
     public static final int RIGHT_TALON_INSIDE = 4;
+    public static final double LEFT_ENCODER_TO_PER_FOOT = 933;
+    public static final double RIGHT_ENCODER_TO_PER_FOOT = 902;
+
 }

@@ -17,8 +17,10 @@ import frc.robot.commands.AutoDriveForward;
 import frc.robot.commands.AutoDriveLeft;
 import frc.robot.commands.AutoDriveRight;
 import frc.robot.commands.AutonomousSquare;
+import frc.robot.commands.DriveForwardEncoder;
 import frc.robot.commands.DriveTime;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.ResetEncodersValues;
 import frc.robot.commands.ResetGyro;
 import frc.robot.commands.driveWithJoystick;
 import frc.robot.subsystems.Drive;
@@ -32,6 +34,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
+
+ //
 public class RobotContainer {
   private final Drive drive = new Drive();
   public Joystick joystickLeft = new Joystick(0);
@@ -42,7 +46,7 @@ public class RobotContainer {
   // JoystickButton autodriveback = new JoystickButton(joystickLeft, 2);
   // JoystickButton autodriveleft = new JoystickButton(joystickRight, 4);
   // JoystickButton autodriveRight = new JoystickButton(joystickRight, 5);
-  JoystickButton resetgyro = new JoystickButton(joystickLeft, 6);
+  JoystickButton resetEncodersButton = new JoystickButton(joystickLeft, 6);
 
   private final SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -70,9 +74,11 @@ public class RobotContainer {
     // autodriveback.whileHeld(new AutoDriveBack(drive));
     // autodriveleft.whileHeld(new AutoDriveLeft(drive));
     // autodriveRight.whileHeld(new AutoDriveRight(drive)); 
-    resetgyro.whenPressed(new ResetGyro(drive));
+    //Jordann did this
+    resetEncodersButton.whenPressed(new ResetEncodersValues(drive));
 
     m_chooser.setDefaultOption("Square Drive", new AutonomousSquare(drive, 3, -0.3));
+    m_chooser.addOption("Drive Foward Encoder", new DriveForwardEncoder(drive, 5, -0.3));
     SmartDashboard.putData(m_chooser);
 
   }
