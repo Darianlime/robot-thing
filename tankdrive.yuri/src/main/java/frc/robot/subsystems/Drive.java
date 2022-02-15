@@ -105,7 +105,7 @@ public class Drive extends SubsystemBase {
 
     public void driveForwardEncoder(double distance, double speed) {
       
-      if (convertToEncoderValue(getEncoderValueLeft(), Constants.LEFT_ENCODER_TO_PER_FOOT) <= distance && convertToEncoderValue(getEncoderValueRight(), Constants.RIGHT_ENCODER_TO_PER_FOOT) <= distance) {
+      if (convertToFeet(getEncoderValueLeft(), Constants.LEFT_ENCODER_TO_PER_FOOT) <= distance && convertToFeet(getEncoderValueRight(), Constants.RIGHT_ENCODER_TO_PER_FOOT) <= distance) {
         driveForward(speed);
       } else {
         driveForward(0);
