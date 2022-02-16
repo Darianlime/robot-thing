@@ -26,19 +26,19 @@ public class DriveTime extends CommandBase {
   @Override
   public void initialize() {
       startTime = System.currentTimeMillis();
-      drive.driveForward(0);
+     // drive.driveForward(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drive.driveForward(speed);
+  //  drive.driveForward(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drive.driveForward(0);
+   // drive.driveForward(0);
   }
 
   // Returns true when the command should end.

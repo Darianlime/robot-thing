@@ -16,12 +16,13 @@ import frc.robot.commands.AutoDriveBack;
 import frc.robot.commands.AutoDriveForward;
 import frc.robot.commands.AutoDriveLeft;
 import frc.robot.commands.AutoDriveRight;
+import frc.robot.commands.AutoEncoderSquare;
 import frc.robot.commands.AutonomousSquare;
 import frc.robot.commands.DriveForwardEncoder;
 import frc.robot.commands.DriveTime;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ResetEncodersValues;
-import frc.robot.commands.ResetGyro;
+import frc.robot.commands.TurnGyro;
 import frc.robot.commands.driveWithJoystick;
 import frc.robot.subsystems.Drive;
 //import frc.robot.subsystems.ExampleSubsystem;
@@ -77,8 +78,12 @@ public class RobotContainer {
     //Jordann did this
     resetEncodersButton.whenPressed(new ResetEncodersValues(drive));
 
-    m_chooser.setDefaultOption("Square Drive", new AutonomousSquare(drive, 3, -0.3));
+    m_chooser.setDefaultOption("Square Drive", new AutonomousSquare(drive, 36, 0.3));
     m_chooser.addOption("Drive Foward Encoder", new DriveForwardEncoder(drive, 5, -0.3));
+    m_chooser.addOption("Drive Square Encoder", new AutoEncoderSquare(drive, 36, -0.3, 12));
+    m_chooser.addOption("TurnGyro", new TurnGyro(drive, 0.3));
+    m_chooser.addOption("Drive Foward", new DriveForwardEncoder(drive, 36, 0.3));
+
     SmartDashboard.putData(m_chooser);
 
   }

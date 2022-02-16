@@ -27,7 +27,6 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
   
   //int kOnboardCS0 = 0;
-  private static final ADXRS450_Gyro gyro = new ADXRS450_Gyro();
   //AnalogGyro gyro = new AnalogGyro(kOnboardCS0);
 
 
@@ -38,8 +37,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     //gyro.initGyro();
-    gyro.calibrate();
-    System.out.println("DEBUG " + gyro.isConnected());
 
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
@@ -55,7 +52,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    SmartDashboard.putNumber("Get Gyro Angle", gyro.getAngle());
 
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,

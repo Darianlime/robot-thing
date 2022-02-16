@@ -25,24 +25,25 @@ public class DriveForwardEncoder extends CommandBase {
   @Override
   public void initialize() {
     drive.resetEncodersValues();
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drive.driveForwardEncoder(distance, speed);
+    drive.autoDriveForward(speed);
   //  encoder = drive.getEncoder();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
+    drive.autoDriveStop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return drive.encoderDistanceValue() >= distance;
   }
 }
