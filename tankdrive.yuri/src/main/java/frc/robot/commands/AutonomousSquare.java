@@ -12,13 +12,13 @@ public class AutonomousSquare extends SequentialCommandGroup {
     public AutonomousSquare(Drive drive,double distance ,double speed) {
         addCommands(
             new DriveForwardEncoder(drive, distance, speed),
+            new TurnGyro(drive, speed),
+            new DriveForwardEncoder(drive, distance, speed),
+            new TurnGyro(drive, speed),
+            new DriveForwardEncoder(drive, distance, speed),
+            new TurnGyro(drive, speed),
+            new DriveForwardEncoder(drive, distance, speed),
             new TurnGyro(drive, speed)
-            //new DriveForwardEncoder(drive, distance, speed)
-            // new TurnGyro(drive, speed),
-            // new DriveForwardEncoder(drive, distance, speed),
-            // new TurnGyro(drive, speed),
-            // new DriveForwardEncoder(drive, distance, speed),
-            // new TurnGyro(drive, speed)
 
         );
     }
