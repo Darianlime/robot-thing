@@ -9,15 +9,15 @@ import frc.robot.subsystems.Drive;
 
 /** Add your docs here. */
 public class AutonomousSquare extends SequentialCommandGroup {
-    public AutonomousSquare(Drive drive,double duration ,double speed) {
+    public AutonomousSquare(Drive drive,double distance ,double speed) {
         addCommands(
-            new DriveTime(drive, duration, speed),
+            new DriveForwardEncoder(drive, distance, speed),
             new TurnGyro(drive, speed),
-            new DriveTime(drive, duration, speed),
+            new DriveForwardEncoder(drive, distance, speed),
             new TurnGyro(drive, speed),
-            new DriveTime(drive, duration, speed),
+            new DriveForwardEncoder(drive, distance, speed),
             new TurnGyro(drive, speed),
-            new DriveTime(drive, duration, speed),
+            new DriveForwardEncoder(drive, distance, speed),
             new TurnGyro(drive, speed)
 
         );

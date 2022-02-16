@@ -9,9 +9,12 @@ import frc.robot.subsystems.Drive;
 
 public class AutoDriveForward extends CommandBase {
   private final Drive drive;
+  private final double speed;
   /** Creates a new AutoDriveForward. */
-  public AutoDriveForward(Drive drive) {
+  public AutoDriveForward(Drive drive, double speed) {
     this.drive = drive;
+    this.speed = speed;
+    addRequirements(drive);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -22,7 +25,7 @@ public class AutoDriveForward extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drive.autoDriveForward();
+    drive.autoDriveForward(speed);
   }
 
   // Called once the command ends or is interrupted.
