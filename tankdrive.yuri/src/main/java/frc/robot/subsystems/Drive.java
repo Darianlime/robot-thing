@@ -5,6 +5,8 @@
 package frc.robot.subsystems;
 
 import java.lang.reflect.Array;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
@@ -32,18 +34,27 @@ public class Drive extends SubsystemBase {
   private static final double RIGHT_ENCODER_TO_PER_FOOT = 0;
   WPI_TalonSRX leftTalonOutside = new WPI_TalonSRX(Constants.LEFT_TALON_OUTSIDE);
   WPI_TalonSRX leftTalonInside = new WPI_TalonSRX(Constants.LEFT_TALON_INSIDE);
-  MotorControllerGroup leftTalon = new MotorControllerGroup(leftTalonOutside, leftTalonInside);
   WPI_TalonSRX rightTalonOutside = new WPI_TalonSRX(Constants.RIGHT_TALON_OUTSIDE);
   WPI_TalonSRX rightTalonInside = new WPI_TalonSRX(Constants.RIGHT_TALON_INSIDE);
-  MotorControllerGroup rightTalon = new MotorControllerGroup(rightTalonOutside, rightTalonInside);
-  DifferentialDrive drive = new DifferentialDrive(leftTalon, rightTalon);
 
   /** Creates a new Drive. */
 
-  // Coasts robot and inverts left talons
   public Drive() {
+    leftTalonInside.set(ControlMode.PercentOutput, 0);
+		leftTalonOutside.set(ControlMode.PercentOutput, 0);
+    rightTalonInside.set(ControlMode.PercentOutput, 0);
+		rightTalonOutside.set(ControlMode.PercentOutput, 0);
+
+		/* Factory Default all hardware to prevent unexpected behaviour */
+		leftTalonInside.configFactoryDefault();
+		leftTalonOutside.configFactoryDefault();
+    rightTalonInside.configFactoryDefault();
+		rightTalonOutside.configFactoryDefault();
+
     // leftTalonInside.setNeutralMode(NeutralMode.Coast);
     leftTalonOutside.setNeutralMode(NeutralMode.Brake);
+    leftTalonInside.setNeutralMode(NeutralMode.Brake);
+    rightTalonOutside.setNeutralMode(NeutralMode.Brake);
     rightTalonInside.setNeutralMode(NeutralMode.Brake);
 
     rightTalonInside.setSensorPhase(true);
@@ -51,33 +62,41 @@ public class Drive extends SubsystemBase {
     // rightTalonOutside.setNeutralMode(NeutralMode.Coast);
     rightTalonInside.setInverted(true);
     rightTalonOutside.setInverted(true);
-    // Factory Default all hardware to prevent unexpected behavior
-    leftTalonOutside.configFactoryDefault();
-    rightTalonInside.configFactoryDefault();
-    // disable all motor controls
-    leftTalonOutside.set(0);
-    rightTalonInside.set(0);
+
     leftTalonOutside.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 30);
     rightTalonInside.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 30);
     leftTalonInside.follow(leftTalonOutside);
     rightTalonOutside.follow(rightTalonInside);
+
+		/* Set status frame periods to ensure we don't have stale data */
+		leftTalonOutside.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20, 30);
+		leftTalonOutside.setStatusFramePeriod(StatusFrame.Status_13_Base_PIDF0, 20, 30);
+    rightTalonInside.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20, 30);
+		rightTalonInside.setStatusFramePeriod(StatusFrame.Status_13_Base_PIDF0, 20, 30);
+
+    leftTalonOutside.configNeutralDeadband(0.001, 30);
+		rightTalonInside.configNeutralDeadband(0.001, 30);
+
+    leftTalonOutside.configPeakOutputForward(1.0, 30);
+		leftTalonOutside.configPeakOutputReverse(-1.0, 30);
+		rightTalonInside.configPeakOutputForward(1.0, 30);
+		rightTalonInside.configPeakOutputReverse(-1.0, 30);
+
+    leftTalonOutside.configClosedLoopPeriod(0, 1, 30);
+		leftTalonOutside.configClosedLoopPeriod(1, 1, 30);
+    rightTalonInside.configClosedLoopPeriod(0, 1, 30);
+		rightTalonInside.configClosedLoopPeriod(1, 1, 30);
+
+    leftTalonOutside.getSensorCollection().setQuadraturePosition(0, 30);
+    rightTalonInside.getSensorCollection().setQuadraturePosition(0, 30);
+
   }
-  // public void driveWithJoystick(Joystick joystickLeft, Joystick joystickRight)
-  // {
 
-  // double leftSpeed = joystickLeft.getRawAxis(1);
-  // double rightSpeed = joystickRight.getRawAxis(1);
-
-  // drive.tankDrive(-0.60 * leftSpeed, 0.60 * rightSpeed);}
-
-  // Uses joystick to move
   public void driveWithJoystick(Joystick joystickleft, Joystick joystickright) {
     double leftspeed = joystickleft.getRawAxis(1);
     double rightspeed = joystickright.getRawAxis(1);
-    leftTalonOutside.set(leftspeed);
-    leftTalonInside.set(leftspeed);
-    rightTalonInside.set(rightspeed);
-    rightTalonOutside.set(rightspeed);
+    //leftTalonOutside.set(leftspeed);
+    //rightTalonInside.set(rightspeed);
 
   }
 
